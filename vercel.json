@@ -9,8 +9,8 @@
     ],
     "rewrites": [
         {
-            "source": "/(.*)",
-            "destination": "/app"
+            "src": "/(.*)",
+            "dest": "/app"
         }
     ]
 }
