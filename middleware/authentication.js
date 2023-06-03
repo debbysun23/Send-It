@@ -18,7 +18,7 @@ const authenticateUser = async (req,res,next) => {
     }
 }
 
- const isAdmin = (req,res,next) =>{
+const isAdmin = (req,res,next) =>{
     if(req.user.role === 'basic'){   
         console.log(req.user)
         throw new BadRequestError('Access Denied')
