@@ -1,16 +1,16 @@
 {
     "version": 2,
-    "name": "socketing",
+    "name": "sendIt",
     "builds": [
         {
             "src": "app.js",
             "use": "@vercel/node"
         }
     ],
-    "rewrites": [
+    "routes": [
         {
             "src": "/(.*)",
-            "dest": "/app"
+            "dest": "/app.js"
         }
     ]
 }
