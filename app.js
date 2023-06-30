@@ -1,6 +1,5 @@
 const express = require('express')
 const path = require('path')
-
 const helmet = require('helmet')
 const cors = require('cors')
 const xss = require('xss-clean')
@@ -24,9 +23,9 @@ const app = express()
 app.set('trust proxy', 1);
 app.use(rateLimiter({ windowMs: 60*1000, max: 60}))
 
-app.get('/', (req,res)=>{
+/*app.get('/', (req,res)=>{
     res.send('parcel order')
-})
+})*/
 app.use(express.json())
 
 app.use(helmet())
