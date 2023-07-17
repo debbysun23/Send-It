@@ -22,7 +22,7 @@ const {BadRequestError, NotFoundError} = require('./errors')
 const app = express()
 app.set('trust proxy', 1);
 app.use(rateLimiter({ windowMs: 60*1000, max: 60}))
-
+app.use(cors());
 app.get('/', (req,res)=>{
     res.send('parcel order')
 })
@@ -88,12 +88,9 @@ app.get('/api/v1/user', (req, res) =>{
     res.status(200).send('welcome page')
 })
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-with, Content-Type, Accept, Authorization');
-    if(req.method === 'OPTIONS'){
-        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-        return res.status(200).json({})
-    }
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-with, Content-Type, Accept, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
     next();
 });
 const port = process.env.PORT || 3000
