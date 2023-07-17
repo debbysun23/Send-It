@@ -29,7 +29,9 @@ app.get('/', (req,res)=>{
 app.use(express.json())
 
 app.use(helmet())
-app.use(cors())
+// app.use(cors({
+//     origin: "http://127.0.0.1/"
+// }))
 app.use(xss())
 app.use(bodyParser.json())
   
@@ -85,7 +87,15 @@ app.put('/api/v1/parcels/:id/currentLocation',isAdmin, async (req, res) => {
 app.get('/api/v1/user', (req, res) =>{
     res.status(200).send('welcome page')
 })
-
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-with, Content-Type, Accept, Authorization');
+    if(req.method === 'OPTIONS'){
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+        return res.status(200).json({})
+    }
+    next();
+});
 const port = process.env.PORT || 3000
 
 const start = async () =>{

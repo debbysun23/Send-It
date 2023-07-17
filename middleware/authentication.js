@@ -4,6 +4,7 @@ const { UnauthenticatedError, BadRequestError } = require('../errors')
 
 const authenticateUser = async (req,res,next) => {
     const authHeader = req.headers.authorization;
+    console.log(authHeader);
     if(!authHeader || !authHeader.startsWith('Bearer')){
         throw new UnauthenticatedError('Autheticatoin Invalid');
     }
