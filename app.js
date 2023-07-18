@@ -29,9 +29,9 @@ app.get('/', (req,res)=>{
 app.use(express.json())
 
 app.use(helmet())
-// app.use(cors({
-//     origin: "http://127.0.0.1/"
-// }))
+app.use(cors({
+    origin: "http://127.0.0.1:5500"
+}))
 app.use(xss())
 app.use(bodyParser.json())
   
