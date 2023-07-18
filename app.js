@@ -87,12 +87,12 @@ app.put('/api/v1/parcels/:id/currentLocation',isAdmin, async (req, res) => {
 app.get('/api/v1/user', (req, res) =>{
     res.status(200).send('welcome page')
 })
-/*app.use((req, res, next) => {
+app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
     res.setHeader('Access-Control-Allow-Headers', ' Content-Type');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     next();
-});*/
+})
 const port = process.env.PORT || 3000
 
 const start = async () =>{
