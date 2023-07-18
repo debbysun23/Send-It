@@ -17,26 +17,29 @@ const {authenticateUser, isAdmin} = require('./middleware/authentication')
 require('dotenv').config()
 const auth = require('./routes/auth')
 const parcel = require('./routes/parcel')
-const {BadRequestError, NotFoundError} = require('./errors')
+const {BadRequestError, NotFoundError} = require('./errors');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express()
-app.set('trust proxy', 1);
+// app.set('trust proxy', 1);
 app.use(rateLimiter({ windowMs: 60*1000, max: 60}))
-app.use(cors());
 app.get('/', (req,res)=>{
     res.send('parcel order')
 })
+
 app.use(express.json())
 
 app.use(helmet())
 app.use(cors({
     origin: "*",
-    credentials: true,
-    optionsSuccessStatus: 200
+    credentials: true
 }))
 app.use(xss())
 app.use(bodyParser.json())
-  
+app.use('/api', createProxyMiddleware({
+    target: 'https://send-it-omega.vercel.app',
+    changeOrigin: true,
+}));  
 app.use('/api/v1', auth )
 app.use('/api/v1', authenticateUser, parcel)
 
