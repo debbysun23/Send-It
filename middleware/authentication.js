@@ -4,20 +4,60 @@ const { UnauthenticatedError, BadRequestError } = require('../errors')
 
 const authenticateUser = async (req,res,next) => {
     const authHeader = req.headers.authorization;
-    console.log(authHeader);
+     console.log(authHeader);
     if(!authHeader || !authHeader.startsWith('Bearer')){
-        throw new UnauthenticatedError('Autheticatoin Invalid');
+         throw new UnauthenticatedError('Autheticatoin Invalid');
     }
-    const token = authHeader.split(' ')[1];
+     const token = authHeader.split(' ')[1];
 
     try{
         const payload = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = { userId: payload.userId, role:payload.role, name: payload.name }
-        next(); 
+         req.user = { userId: payload.userId, role:payload.role, name: payload.name }
+         next(); 
     }catch(error){
-        throw new UnauthenticatedError('Authentication Invalid');
+         throw new UnauthenticatedError('Authentication Invalid');
     }
 }
+
+/*const generateToken = (user, callback) => {
+    console.log("user", user);
+    jwt.sign(
+      {
+        username: user.username,
+        email: user.email,
+        password: user.password
+      },
+      process.env.JWT_KEY,
+      (err, res) => {
+        callback(err, res);
+      }
+    );
+};
+
+const authorizeUser = (req, res, next) => {
+    const token = 
+                  req.headers.authorization.split(" ")[1]||
+                  req.headers.authorization ||
+                  req.headers["X-access-token"] ||
+                  req.body.token
+
+         if(!token){
+           res.status(401).json({
+              message: 'Unauthorized user'
+           })
+         }
+         try{
+           const decoded = jwt.verify(token, process.env.JWT_KEY);
+           req.user = decoded;
+           next();
+         }
+        catch(err){
+            res.status(400).json({
+              error: err
+            })
+          }
+        
+}*/
 
 const isAdmin = (req,res,next) =>{
     if(req.user.role === 'basic'){   
@@ -30,6 +70,8 @@ const isAdmin = (req,res,next) =>{
 } 
 
 module.exports ={   
+    //authorizeUser,
+    //generateToken,
     authenticateUser,
     isAdmin
 } 

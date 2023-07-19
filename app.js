@@ -18,10 +18,10 @@ require('dotenv').config()
 const auth = require('./routes/auth')
 const parcel = require('./routes/parcel')
 const {BadRequestError, NotFoundError} = require('./errors');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+// const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express()
-// app.set('trust proxy', 1);
+app.set('trust proxy', 1);
 app.use(rateLimiter({ windowMs: 60*1000, max: 60}))
 app.get('/', (req,res)=>{
     res.send('parcel order')
@@ -30,16 +30,16 @@ app.get('/', (req,res)=>{
 app.use(express.json())
 
 app.use(helmet())
-app.use(cors({
-    origin: "*",
-    credentials: true
-}))
+app.use(cors())
+/*app.use(cors({
+    origin: "*"
+}))*/
 app.use(xss())
 app.use(bodyParser.json())
-app.use('/api', createProxyMiddleware({
-    target: 'https://send-it-omega.vercel.app',
-    changeOrigin: true,
-}));  
+// app.use('/api', createProxyMiddleware({
+//     target: 'https://send-it-omega.vercel.app',
+//     changeOrigin: true,
+// }));  
 app.use('/api/v1', auth )
 app.use('/api/v1', authenticateUser, parcel)
 
@@ -92,12 +92,12 @@ app.put('/api/v1/parcels/:id/currentLocation',isAdmin, async (req, res) => {
 app.get('/api/v1/user', (req, res) =>{
     res.status(200).send('welcome page')
 })
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', ' Content-Type');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     next();
-})
+})*/
 const port = process.env.PORT || 3000
 
 const start = async () =>{
