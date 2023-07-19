@@ -11,24 +11,25 @@ const {generateToken, authorizeUser} = require('../middleware/authentication');
     }    
 
     const login = async (req, res) => {
-        // const { email, password } = req.body
+        const { email, password } = req.body
       
-        // if (!email || !password) {
-        //   throw new BadRequestError('Please provide email and password')
-        // }
-        // const user = await User.findOne({ email })
-        // if (!user) {
-        //   throw new UnauthenticatedError('Invalid Credentials')
-        // }
-        // const isPasswordCorrect = await user.comparePassword(password)
-        // if (!isPasswordCorrect) {
-        //   throw new UnauthenticatedError('Invalid Credentials')
-        // }
+        if (!email || !password) {
+          throw new BadRequestError('Please provide email and password')
+        }
+        const user = await User.findOne({ email })
+        if (!user) {
+          throw new UnauthenticatedError('Invalid Credentials')
+        }
+        const isPasswordCorrect = await user.comparePassword(password)
+        if (!isPasswordCorrect) {
+          throw new UnauthenticatedError('Invalid Credentials')
+        } 
         
-        // const token = user.createJWT()     
-        // res.status(StatusCodes.OK).json({ user: { name: user.name }, token }) 
+        const token = user.createJWT()     
+        res.status(StatusCodes.OK).json({ user: { name: user.name }, token }) 
+      }  
       //login a user
-      User.find({email: req.body.email})
+      /*User.find({email: req.body.email})
       .then((user) => {
           if(user.lenght < 1){
             return res.status(401).json({
@@ -72,7 +73,7 @@ const {generateToken, authorizeUser} = require('../middleware/authentication');
               })
           })
 
-        }
+        }*/
 
     module.exports = {
         register,
