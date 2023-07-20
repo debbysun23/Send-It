@@ -17,7 +17,7 @@ const getParcelOrder = async (req, res) => {
       createdBy: userId,
     })
     if (!parcel) {
-      throw new NotFoundError(`No job with id ${parcelId}`)
+        return res.status(404).send({error: `No job with id ${parcelId}`})
     }
     res.status(StatusCodes.OK).json({ parcel })
 }
@@ -34,7 +34,7 @@ const updateParcelDestination = async (req, res) => {
     } = req 
 
     if(destination=== ''){
-        throw new BadRequestError('Destination field cannot be empty')
+        return res.status(400).send({error: 'Destination field cannot be empty'})
     }
     const parcel = await Parcel.findByIdAndUpdate(
         { _id: parcelId, createdBy: userId },
@@ -42,7 +42,7 @@ const updateParcelDestination = async (req, res) => {
         { new: true, runValidators: true }
     )
     if (!parcel) {
-        throw new NotFoundError(`No job with id ${parcelId}`) 
+        return res.status(404).send({error: `No job with id ${parcelId}`})
     }      
     res.status(StatusCodes.OK).json({ parcel })
 }
@@ -58,7 +58,7 @@ const deleteParcelOrder = async (req, res) => {
         createdBy:userId
     })
     if (!parcel) {
-        throw new NotFoundError(`No job with id ${parcelId}`)
+        return res.status(404).send({error: `No job with id ${parcelId}`})
     }      
     res.status(StatusCodes.OK).send('Deleted successfully')
 }

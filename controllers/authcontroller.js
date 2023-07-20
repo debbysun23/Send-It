@@ -14,20 +14,25 @@ const {generateToken, authorizeUser} = require('../middleware/authentication');
         const { email, password } = req.body
       
         if (!email || !password) {
-          throw new BadRequestError('Please provide email and password')
+          return res.status(400).send({error: 'Please provide email and password'})
         }
         const user = await User.findOne({ email })
         if (!user) {
-          throw new UnauthenticatedError('Invalid Credentials')
+          return res.status(404).send({error: 'User not found'})
         }
         const isPasswordCorrect = await user.comparePassword(password)
         if (!isPasswordCorrect) {
-          throw new UnauthenticatedError('Invalid Credentials')
+          return res.status(404).send({error: 'User not found'})
         } 
         
         const token = user.createJWT()     
         res.status(StatusCodes.OK).json({ user: { name: user.name }, token }) 
-      }  
+    }
+
+    const logout = async (req, res) => {
+      res.status(StatusCodes.OK).json({ msg: 'user logged out!' });
+    }
+
       //login a user
       /*User.find({email: req.body.email})
       .then((user) => {
@@ -78,4 +83,5 @@ const {generateToken, authorizeUser} = require('../middleware/authentication');
     module.exports = {
         register,
         login,
+        logout,
     }

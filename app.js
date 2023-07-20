@@ -17,8 +17,6 @@ const {authenticateUser, isAdmin} = require('./middleware/authentication')
 require('dotenv').config()
 const auth = require('./routes/auth')
 const parcel = require('./routes/parcel')
-const {BadRequestError, NotFoundError} = require('./errors');
-// const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express()
 app.set('trust proxy', 1);
@@ -51,7 +49,7 @@ app.put('/api/v1/parcels/:id/status', isAdmin, async (req, res) => {
     } = req
 
     if(status=== ''){
-        throw new BadRequestError('Status field cannot be empty')
+        return res.status(400).send({error: 'Status field cannot be empty'})
     }
 
     const parcel = await Parcel.findByIdAndUpdate(
@@ -61,7 +59,7 @@ app.put('/api/v1/parcels/:id/status', isAdmin, async (req, res) => {
     )
 
     if (!parcel) {
-        throw new NotFoundError(`No job with id ${parcelId}`)
+        return res.status(404).send({error: `No job with id ${parcelId}`})
     }      
     res.status(StatusCodes.OK).json({ parcel })
 })
@@ -74,7 +72,7 @@ app.put('/api/v1/parcels/:id/currentLocation',isAdmin, async (req, res) => {
     } = req
 
     if(current_location=== ''){
-        throw new BadRequestError('currentLocation field cannot be empty')
+        return res.status(400).send({error: 'CurrentLocation field cannot be empty'})
     }
 
     const parcel = await Parcel.findByIdAndUpdate(
@@ -84,7 +82,7 @@ app.put('/api/v1/parcels/:id/currentLocation',isAdmin, async (req, res) => {
     )
 
     if (!parcel) {
-        throw new NotFoundError(`No job with id ${parcelId}`)
+        return res.status(404).send({error: `No job with id ${parcelId}`});
     }      
     res.status(StatusCodes.OK).json({ parcel })
 })
