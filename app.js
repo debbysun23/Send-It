@@ -68,12 +68,12 @@ app.put('/api/v1/parcels/:id/status', isAdmin, async (req, res) => {
 
 app.put('/api/v1/parcels/:id/currentLocation',isAdmin, async (req, res) => {
     const {
-        body: { currentLocation },
+        body: { current_location },
         user: { userId },
         params: { id: parcelId },
     } = req
 
-    if(currentLocation=== ''){
+    if(current_location=== ''){
         throw new BadRequestError('currentLocation field cannot be empty')
     }
 

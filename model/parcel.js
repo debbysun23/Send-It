@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 var pickupLocation = pickupLocation
 const parcelSchema = new mongoose.Schema(
     {
-        itemDescription: {
+        item_description: {
             type: String,
             required:[true, 'please provide itemDescription'],
         },
@@ -10,7 +10,7 @@ const parcelSchema = new mongoose.Schema(
             type: Number,
             required: true
         },
-        pickupLocation: {
+        pickup_location: {
             type: String,
             required: true
         },
@@ -18,15 +18,15 @@ const parcelSchema = new mongoose.Schema(
             type : String,
             required: true
         },
-        recipientName: {
+        recipient_name: {
             type: String,
             required: true
         },
-        recipientNumber: {
+        recipient_number: {
             type: String,
             required: true
         }, 
-        currentLocation:{
+        current_location:{
             type:String,
             required:true
         },

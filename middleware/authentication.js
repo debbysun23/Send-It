@@ -6,7 +6,8 @@ const authenticateUser = async (req,res,next) => {
     const authHeader = req.headers.authorization;
      console.log(authHeader);
     if(!authHeader || !authHeader.startsWith('Bearer')){
-         throw new UnauthenticatedError('Autheticatoin Invalid');
+         //throw new UnauthenticatedError('Autheticatoin Invalid');
+         return res.status(400).send({error: 'Authorization header missing'})
     }
      const token = authHeader.split(' ')[1];
 
@@ -15,7 +16,8 @@ const authenticateUser = async (req,res,next) => {
          req.user = { userId: payload.userId, role:payload.role, name: payload.name }
          next(); 
     }catch(error){
-         throw new UnauthenticatedError('Authentication Invalid');
+         //throw new UnauthenticatedError('Authentication Invalid');
+         return res.status(400).send({error: 'Authorization header missing'});
     }
 }
 
