@@ -60,7 +60,7 @@ const deleteParcelOrder = async (req, res) => {
     if (!parcel) {
         return res.status(404).send({error: `No job with id ${parcelId}`})
     }      
-    res.status(StatusCodes.OK).send('Deleted successfully')
+    res.status(StatusCodes.OK).json({msg: 'Deleted successfully'})
 }
 
 module.exports = {
