@@ -87,15 +87,14 @@ app.put('/api/v1/parcels/:id/currentLocation',isAdmin, async (req, res) => {
     res.status(StatusCodes.OK).json({ parcel })
 })
 
+app.get('/api/v1/allParcels', isAdmin, async (req, res) => {
+    const allParcels = await Parcel.find({})
+    res.status(StatusCodes.OK).json({ allParcels, count:allParcels.length})
+})
 app.get('/api/v1/user', (req, res) =>{
     res.status(200).send('welcome page')
 })
-/*app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', ' Content-Type');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    next();
-})*/
+
 const port = process.env.PORT || 3000
 
 const start = async () =>{
@@ -103,7 +102,7 @@ const start = async () =>{
         await connectDB(process.env.MONGO_URI)
         app.listen(port, () => {
             console.log(`server is listening on port ${port}....`)
-        })
+        }) 
     } catch (error) {
         console.log(error)
     }
