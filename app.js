@@ -33,7 +33,7 @@ app.use(cors())
     origin: "*"
 }))*/
 app.use(xss())
-app.use(bodyParser.json())
+//app.use(bodyParser.json())
 // app.use('/api', createProxyMiddleware({
 //     target: 'https://send-it-omega.vercel.app',
 //     changeOrigin: true,
@@ -90,6 +90,10 @@ app.put('/api/v1/parcels/:id/currentLocation',isAdmin, async (req, res) => {
 app.get('/api/v1/allParcels', isAdmin, async (req, res) => {
     const allParcels = await Parcel.find({})
     res.status(StatusCodes.OK).json({ allParcels, count:allParcels.length})
+})
+app.get('/api/v1/allUsers', isAdmin, async (req, res) => {
+    const allUsers = await User.find({})
+    res.status(StatusCodes.OK).json({ allUsers, count:allUsers.length})
 })
 app.get('/api/v1/user', (req, res) =>{
     res.status(200).send('welcome page')

@@ -17,7 +17,7 @@ const authenticateUser = async (req,res,next) => {
          next(); 
     }catch(error){
          //throw new UnauthenticatedError('Authentication Invalid');
-         return res.status(400).send({error: 'Authorization header missing'});
+         return res.status(400).send({error: 'Authorization header missing'})
     }
 }
 
