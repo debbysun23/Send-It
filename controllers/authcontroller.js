@@ -1,13 +1,10 @@
 const User = require('../model/User')
 const {StatusCodes} =require('http-status-codes')
-const { BadRequestError, UnauthenticatedError } = require('../errors')
-const {generateToken, authorizeUser} = require('../middleware/authentication');
-//const jwt = require('jsonwebtoken')
 
     const register = async (req, res) => {
         const user = await User.create({...req.body})
         const token = user.createJWT()
-        res.status(StatusCodes.CREATED).json({ user: { name: user.name}, token })
+        res.status(StatusCodes.CREATED).json({ user: { name: user.name, role:user.role}, token })
     }    
 
     const login = async (req, res) => {
@@ -33,52 +30,6 @@ const {generateToken, authorizeUser} = require('../middleware/authentication');
       res.status(StatusCodes.OK).json({ msg: 'user logged out!' });
     }
 
-      //login a user
-      /*User.find({email: req.body.email})
-      .then((user) => {
-          if(user.lenght < 1){
-            return res.status(401).json({
-                  message: 'user does not exist'
-              });
-          }
-            bcrypt.compare(req.body.password, user[0].password, (err, result) => {
-          if(err) {
-              return res.status(401).json({
-                  message: "Auth failed"
-                    }) 
-                  }
-          if(result) {
-              console.log(result);
-              generateToken(user[0], (err, token) => {
-                  if(err){
-                  console.log("error", err);
-                  }
-                  else{
-                    res.status(200).json({
-                    message: "Auth successful",
-                    user: user[0],
-                    token: token
-                      })
-                  }
-      });
-    }
-
-          else{
-              res.status(401).json({
-                  message: "Auth failed"
-                  }) 
-              }   
-          }
-              )
-          })
-          .catch((err) => {
-              res.status(401).json({
-                  error: err,
-                  message: "Auth failed"
-              })
-          })
-
-        }*/
 
     module.exports = {
         register,

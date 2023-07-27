@@ -96,7 +96,7 @@ app.get('/api/v1/allUsers', isAdmin, async (req, res) => {
     res.status(StatusCodes.OK).json({ allUsers, count:allUsers.length})
 })
 app.get('/api/v1/user', (req, res) =>{
-    res.status(200).send('welcome page')
+    res.status(200).send('welcome page');
 })
 
 const port = process.env.PORT || 3000
