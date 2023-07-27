@@ -23,7 +23,7 @@ const {StatusCodes} =require('http-status-codes')
         } 
         
         const token = user.createJWT()     
-        res.status(StatusCodes.OK).json({ user: { name: user.name }, token }) 
+        res.status(StatusCodes.OK).json({ user: { name: user.name, role:user.role }, token }) 
     }
 
     const logout = async (req, res) => {
