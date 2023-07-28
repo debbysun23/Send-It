@@ -1,10 +1,8 @@
 const express = require('express')
-const path = require('path')
 const helmet = require('helmet')
 const cors = require('cors')
 const xss = require('xss-clean')
 const rateLimiter = require('express-rate-limit')
-const bodyParser = require('body-parser')
 const Parcel = require('./model/parcel')
 const Location = require('./model/currentlocation')
 const swaggerUI = require('swagger-ui-express')
@@ -29,15 +27,8 @@ app.use(express.json())
 
 app.use(helmet())
 app.use(cors())
-/*app.use(cors({
-    origin: "*"
-}))*/
 app.use(xss())
-//app.use(bodyParser.json())
-// app.use('/api', createProxyMiddleware({
-//     target: 'https://send-it-omega.vercel.app',
-//     changeOrigin: true,
-// }));  
+
 app.use('/api/v1', auth )
 app.use('/api/v1', authenticateUser, parcel)
 

@@ -1,7 +1,5 @@
 const Parcel = require('../model/parcel')
-const Status = require('../model/status')
 const {StatusCodes} = require('http-status-codes')
-const {BadRequestError, NotFoundError} = require('../errors')
 const getAllParcelOrders = async (req,res) => { 
     const parcels = await Parcel.find({createdBy:req.user.userId}).sort('createdAt')
     res.status(StatusCodes.OK).json({ parcels, count:parcels.length })
