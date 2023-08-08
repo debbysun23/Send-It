@@ -61,10 +61,10 @@ app.put('/api/v1/cancel/:id/status', async (req, res) => {
         params: { id: parcelId },
     } = req
 
-    const parcel = await Parcel.findByIdAndUpdate({
-        _id: parcelId,
-        createdBy: userId,
-    })
+    const parcel = await Parcel.findByIdAndUpdate(
+        { _id: parcelId, createdBy: userId },
+        { new: true, runValidators: true } 
+    )
     parcel.status = 'canceled';
 
     res.status(StatusCodes.OK).json({ parcel });
