@@ -56,18 +56,23 @@ app.put('/api/v1/parcels/:id/status', isAdmin, async (req, res) => {
 })
 
 app.put('/api/v1/cancel/:id/status', async (req, res) => {
-    const {
-        user: { userId },
-        params: { id: parcelId },
-    } = req
+    try{
+        const {
+            user: { userId },
+            params: { id: parcelId },
+        } = req
 
-    const parcel = await Parcel.findByIdAndUpdate(
-        { _id: parcelId, createdBy: userId },
-        { new: true, runValidators: true } 
-    )
-    parcel.status = 'canceled';
+        const parcel = await Parcel.findByIdAndUpdate(
+            { _id: parcelId, createdBy: userId },
+            { new: true, runValidators: true } 
+        )
+        parcel.status = 'cancelled';
 
-    res.status(StatusCodes.OK).json({ parcel });
+        res.status(StatusCodes.OK).json({ parcel });
+    } catch (error)  {
+        console.log(error);
+         return res.status(500).json({ message: 'Internal server error' });
+    } 
 })
 app.put('/api/v1/parcels/:id/currentLocation',isAdmin, async (req, res) => {
     const {
