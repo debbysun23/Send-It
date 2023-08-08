@@ -66,8 +66,8 @@ app.put('/api/v1/cancel/:id/status', async (req, res) => {
         createdBy: userId,
     })
     parcel.status = 'canceled';
-    
-    res.status(StatusCodes.OK).json({ message: 'Status updated successfully' });
+
+    res.status(StatusCodes.OK).json({ parcel });
 })
 app.put('/api/v1/parcels/:id/currentLocation',isAdmin, async (req, res) => {
     const {
