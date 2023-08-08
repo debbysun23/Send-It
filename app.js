@@ -61,7 +61,7 @@ app.put('/api/v1/cancel/:id/status', async (req, res) => {
         params: { id: parcelId },
     } = req
 
-    const parcel = await Parcel.findById({
+    const parcel = await Parcel.findByIdAndUpdate({
         _id: parcelId,
         createdBy: userId,
     })
