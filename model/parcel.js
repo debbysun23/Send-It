@@ -32,7 +32,7 @@ const parcelSchema = new mongoose.Schema(
         },
         status: {
             type: String,
-            enum: ['pending', 'delivering', 'delivered'],
+            enum: ['pending', 'in transit', 'delivered', 'canceled'],
             default: 'pending', 
         },
         createdBy: {

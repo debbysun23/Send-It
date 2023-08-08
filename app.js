@@ -38,7 +38,7 @@ app.put('/api/v1/parcels/:id/status', isAdmin, async (req, res) => {
         user: { userId },
         params: { id: parcelId },
     } = req
-
+                                             
     if(status=== ''){
         return res.status(400).send({error: 'Status field cannot be empty'})
     }
@@ -55,6 +55,20 @@ app.put('/api/v1/parcels/:id/status', isAdmin, async (req, res) => {
     res.status(StatusCodes.OK).json({ parcel })
 })
 
+app.put('/api/v1/cancel/:id/status', async (req, res) => {
+    const {
+        user: { userId },
+        params: { id: parcelId },
+    } = req
+
+    const parcel = await Parcel.findById({
+        _id: parcelId,
+        createdBy: userId,
+    })
+    parcel.status = 'canceled';
+    
+    res.status(StatusCodes.OK).json({ message: 'Status updated successfully' });
+})
 app.put('/api/v1/parcels/:id/currentLocation',isAdmin, async (req, res) => {
     const {
         body: { current_location },
