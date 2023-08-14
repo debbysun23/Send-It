@@ -65,7 +65,7 @@ app.put('/api/v1/cancel/:id/status', async (req, res) => {
         const parcel = await Parcel.findByIdAndUpdate(
             { _id: parcelId, createdBy: userId },
             //req.body,
-            res.parcel.status = 'cancelled' ,
+            { status: 'cancelled' },
             { new: true, runValidators: true } 
         )
         //parcel.status = 'cancelled' 
@@ -77,7 +77,7 @@ app.put('/api/v1/cancel/:id/status', async (req, res) => {
 
 
     // Parcel.findByIdAndUpdate({id: req.params.id}, {$set: req.body})
-    // .exec()
+    // .exec() 
     // .then((result) => {
     //     res.status(200).json({
     //         message: "order cancelled",
