@@ -64,11 +64,11 @@ app.put('/api/v1/cancel/:id/status', async (req, res) => {
 
         const parcel = await Parcel.findByIdAndUpdate(
             { _id: parcelId, createdBy: userId },
-            req.body,
+            //req.body,
+            res.parcel.status = 'cancelled' ,
             { new: true, runValidators: true } 
         )
-        parcel.status = 'cancelled'
-
+        //parcel.status = 'cancelled' 
         res.status(StatusCodes.OK).json({ parcel });
     } catch (error)  {
         console.log(error);
