@@ -64,11 +64,9 @@ app.put('/api/v1/cancel/:id/status', async (req, res) => {
 
         const parcel = await Parcel.findByIdAndUpdate(
             { _id: parcelId, createdBy: userId },
-            //req.body,
             { status: 'cancelled' },
             { new: true, runValidators: true } 
         )
-        //parcel.status = 'cancelled' 
         res.status(StatusCodes.OK).json({ parcel });
     } catch (error)  {
         console.log(error);
@@ -76,20 +74,6 @@ app.put('/api/v1/cancel/:id/status', async (req, res) => {
     } 
 
 
-    // Parcel.findByIdAndUpdate({id: req.params.id}, {$set: req.body})
-    // .exec() 
-    // .then((result) => {
-    //     res.status(200).json({
-    //         message: "order cancelled",
-    //         updatedData: result
-    //     })
-    // })
-    // .catch(err => {
-    //     res.status(500).json({
-    //         message: "error occured",
-    //         error:err
-    //     })
-    // })
 })
 app.put('/api/v1/parcels/:id/currentLocation',isAdmin, async (req, res) => {
     const {

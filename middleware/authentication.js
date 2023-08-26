@@ -1,13 +1,12 @@
 const User = require('../model/User')
 const jwt = require('jsonwebtoken')
 
-
 const authenticateUser = async (req,res,next) => {
     const authHeader = req.headers.authorization;
      console.log(authHeader);
     if(!authHeader || !authHeader.startsWith('Bearer')){
          //return res.status(400).send({error: 'Authorization header missing'})
-         return res.redirect('/api/v1/user/login')
+         return res.redirect('/user/login')
     }
      const token = authHeader.split(' ')[1];
 
@@ -17,7 +16,7 @@ const authenticateUser = async (req,res,next) => {
          next(); 
     }catch(error){
          //return res.status(400).send({error: 'Authorization header missing'})
-         return res.redirect('/api/v1/user/login')
+         return res.redirect('/user/login')
     }
 }
 
