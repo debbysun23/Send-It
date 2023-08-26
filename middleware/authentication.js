@@ -7,7 +7,7 @@ const authenticateUser = async (req,res,next) => {
      console.log(authHeader);
     if(!authHeader || !authHeader.startsWith('Bearer')){
          //return res.status(400).send({error: 'Authorization header missing'})
-         res.redirect('/api/v1/user/login')
+         return res.redirect('/api/v1/user/login')
     }
      const token = authHeader.split(' ')[1];
 
@@ -17,7 +17,7 @@ const authenticateUser = async (req,res,next) => {
          next(); 
     }catch(error){
          //return res.status(400).send({error: 'Authorization header missing'})
-         res.redirect('/api/v1/user/login')
+         return res.redirect('/api/v1/user/login')
     }
 }
 
