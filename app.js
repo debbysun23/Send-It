@@ -102,7 +102,7 @@ app.put('/api/v1/parcels/:id/currentLocation',isAdmin, async (req, res) => {
         return res.status(400).send({error: 'CurrentLocation field cannot be empty'})
     }
 
-    const parcel = await Location.findByIdAndUpdate(
+    const parcel = await Parcel.findByIdAndUpdate(
         { _id: parcelId, createdBy: userId },
         req.body, 
         { new: true, runValidators: true } 

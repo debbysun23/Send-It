@@ -26,10 +26,10 @@ const parcelSchema = new mongoose.Schema(
             type: String,
             required: true
         }, 
-        // current_location:{
-        //     type:String,
-        //     required:true
-        // },
+        current_location:{
+            type:String,
+            required:true
+        },
         status: {
             type: String,
             enum: ['pending', 'in-transit', 'delivered', 'cancelled'],
