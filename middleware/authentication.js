@@ -6,7 +6,8 @@ const authenticateUser = async (req,res,next) => {
     const authHeader = req.headers.authorization;
      console.log(authHeader);
     if(!authHeader || !authHeader.startsWith('Bearer')){
-         return res.status(400).send({error: 'Authorization header missing'})
+         //return res.status(400).send({error: 'Authorization header missing'})
+         res.redirect('/api/v1/user/login')
     }
      const token = authHeader.split(' ')[1];
 
@@ -15,12 +16,13 @@ const authenticateUser = async (req,res,next) => {
          req.user = { userId: payload.userId, role:payload.role, name: payload.name }
          next(); 
     }catch(error){
-         return res.status(400).send({error: 'Authorization header missing'})
+         //return res.status(400).send({error: 'Authorization header missing'})
+         res.redirect('/api/v1/user/login')
     }
 }
 
 
-const isAdmin = (req,res,next) =>{
+const isAdmin = (req,res,next) =>{ 
     if(req.user.role === 'basic'){   
         console.log(req.user)
         return res.status(401).send({error: 'Unauthorized User'});
