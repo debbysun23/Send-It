@@ -28,7 +28,8 @@ const parcelSchema = new mongoose.Schema(
         }, 
         current_location:{
             type:String,
-            required:true
+            required:true,
+            default: pickup_location
         },
         status: {
             type: String,
