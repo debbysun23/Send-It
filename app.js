@@ -30,7 +30,8 @@ app.use(cors())
 app.use(xss())
 
 app.use('/api/v1', auth )
-app.use('/api/v1', authenticateUser, parcel)
+app.use('/api/v1', authenticateUser)
+app.use('/api/v1', parcel)
 
 app.put('/api/v1/parcels/:id/status', isAdmin, async (req, res) => {
     const {
