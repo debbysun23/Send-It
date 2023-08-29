@@ -4,7 +4,7 @@ const parcelSchema = new mongoose.Schema(
     {
         item_description: {
             type: String,
-            required:[true, 'please provide itemDescription'],
+            required:true,
         },
         price: {
             type: Number,
@@ -16,7 +16,7 @@ const parcelSchema = new mongoose.Schema(
         },
         destination: {
             type : String,
-            required: true
+           required: true
         },
         recipient_name: {
             type: String,
@@ -33,14 +33,15 @@ const parcelSchema = new mongoose.Schema(
                 return this.pickup_location; 
             },
         },
-        weight: {
-            type: Number,
-            required: true
-        },
-        amount: {
-            type: String,
-            required: true
-        },
+        // weight: {
+        //     type: Number,
+        //    // required: true
+        // },
+        // amount: {
+        //     type: String,
+        //     //required: true,
+        //     default:'330',
+        // },
         status: {
             type: String,
             enum: ['pending', 'in-transit', 'delivered', 'cancelled'], 
@@ -48,11 +49,11 @@ const parcelSchema = new mongoose.Schema(
         },
         createdBy: {
             type:mongoose.Types.ObjectId,
-            ref: 'User',
-            required:[true, 'please provide user']
+            ref: 'User', 
+            required:true, 
         }
     },{timestamps: true}
 )
-
+ 
 const model = mongoose.model('parcel', parcelSchema)
 module.exports = model  
