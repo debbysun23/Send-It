@@ -33,6 +33,14 @@ const parcelSchema = new mongoose.Schema(
                 return this.pickup_location; 
             },
         },
+        weight: {
+            type: Number,
+            required: true
+        },
+        amount: {
+            type: String,
+            required: true
+        },
         status: {
             type: String,
             enum: ['pending', 'in-transit', 'delivered', 'cancelled'], 
